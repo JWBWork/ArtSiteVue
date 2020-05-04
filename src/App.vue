@@ -1,28 +1,50 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+  <v-app id="inspire">
+    <v-navigation-drawer v-model="drawer" app clipped>
+      <SideNav />
+    </v-navigation-drawer>
+
+    <v-app-bar app clipped-left>
+      <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
+      <v-toolbar-title>HF</v-toolbar-title>
+    </v-app-bar>
+
+    <v-content>
+      <v-container class="fill-height" fluid>
+        <v-row align="center" justify="center">
+          <v-col>
+            <UploadPicture />
+          </v-col>
+        </v-row>
+      </v-container>
+    </v-content>
+
+    <v-footer app>
+      <span>&copy; 2019</span>
+    </v-footer>
+  </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import UploadPicture from "./components/UploadPicture";
+import SideNav from "./components/SideNav";
 
 export default {
-  name: 'App',
   components: {
-    HelloWorld
-  }
-}
-</script>
+    UploadPicture,
+    SideNav
+  },
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
+  props: {
+    source: String
+  },
+
+  data: () => ({
+    drawer: null
+  }),
+
+  created() {
+    this.$vuetify.theme.dark = true;
+  }
+};
+</script>
