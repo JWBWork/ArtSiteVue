@@ -4,6 +4,9 @@ import vuetify from './plugins/vuetify'
 import store from './store'
 import router from './router'
 
+import Vuebar from 'vuebar';
+Vue.use(Vuebar);
+
 Vue.config.productionTip = false
 
 new Vue({

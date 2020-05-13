@@ -61,10 +61,10 @@
 </template>
 
 <script lang="js">
-    import axios from 'axios'
+    // import axios from 'axios'
 
   export default  {
-    name: 'upload-picture',
+    name: 'post-form',
     props: [],
     mounted () {
 
@@ -86,18 +86,32 @@
         validate() {
             let valid = this.$refs.form.validate()
             if (valid) {
+                // Post to cloudfront THEN post to backend? 
+                // Don't need to handle their image data on my server
+                // and will have to deal with cloudfront somehow
                 let formData = new FormData();
                 formData.append('image', this.imagefile, this.imagefile.name)
                 formData.append('title', this.title);
-                formData.append('tags', this.submissionTags)
+                formData.append('tags', this.submissionTags);
+                formData.append('user_id', this.$store.getters.user.id);
 
                 console.log('image upload valid!');
-                axios.post(
-                    'image', formData
+                // axios.post(
+                this.$store.dispatch(
+                    'submitPost', formData
                 ).then(response => {
                     console.log(response)
+                    this.$router.push({
+                        name: 'Post',
+                        // path: `/post/${response.data.post.id}`,
+                        params: {
+                            post: response.data.post
+                        }
+                    })
                 }).catch(e => {
-                    this.errors.push(e)
+                    console.log(e);
+                    this.$refs.form.reset()
+                    this.$router.push('Login');
                 });
             }
         },
@@ -118,7 +132,7 @@
 </script>
 
 <style scoped lang="scss">
-  .upload-picture {
+  .post-form {
 
   }
 </style>

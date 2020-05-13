@@ -12,7 +12,7 @@
               </v-list-item-content>
             </v-list-item>
           </router-link>
-          <router-link link to="/about">
+          <router-link link to="/feed">
             <v-list-item>
               <v-list-item-action>
                   <v-icon>mdi-view-dashboard</v-icon>
@@ -22,7 +22,37 @@
               </v-list-item-content>
             </v-list-item>
           </router-link>
-          <router-link link to="/submit">
+          <router-link link to="/settings">
+            <v-list-item>
+                <v-list-item-action>
+                    <v-icon>mdi-tune</v-icon>
+                </v-list-item-action>
+                <v-list-item-content>
+                    <v-list-item-title>Settings</v-list-item-title>
+                </v-list-item-content>
+            </v-list-item>
+          </router-link>
+          <router-link link to="/login" v-if="!loggedIn">
+            <v-list-item>
+                <v-list-item-action>
+                    <v-icon>mdi-login</v-icon>
+                </v-list-item-action>
+                <v-list-item-content>
+                    <v-list-item-title>Login/Register</v-list-item-title>
+                </v-list-item-content>
+            </v-list-item>
+          </router-link>
+          <router-link link to="/account" v-if="loggedIn">
+            <v-list-item>
+                <v-list-item-action>
+                    <v-icon>mdi-account</v-icon>
+                </v-list-item-action>
+                <v-list-item-content>
+                    <v-list-item-title>Account</v-list-item-title>
+                </v-list-item-content>
+            </v-list-item>
+          </router-link>
+          <router-link link to="/submit" v-if="loggedIn">
             <v-list-item>
               <v-list-item-action>
                   <v-icon>mdi-upload</v-icon>
@@ -32,22 +62,6 @@
               </v-list-item-content>
             </v-list-item>
           </router-link>
-          <v-list-item link>
-              <v-list-item-action>
-                  <v-icon>mdi-tune</v-icon>
-              </v-list-item-action>
-              <v-list-item-content>
-                  <v-list-item-title>Settings</v-list-item-title>
-              </v-list-item-content>
-          </v-list-item>
-          <v-list-item link>
-              <v-list-item-action>
-                  <v-icon>mdi-view-account</v-icon>
-              </v-list-item-action>
-              <v-list-item-content>
-                  <v-list-item-title>Account</v-list-item-title>
-              </v-list-item-content>
-          </v-list-item>
       </v-list>
   </section>
 
@@ -70,7 +84,9 @@
 
     },
     computed: {
-
+      loggedIn(){
+        return this.$store.getters.authenticated
+      }
     }
 }
 

@@ -4,41 +4,41 @@
       <SideNav />
     </v-navigation-drawer>
 
-    <v-app-bar app clipped-left>
+    <v-app-bar app clipped-left dense 
+    :hide-on-scroll="$vuetify.breakpoint.smAndDown">
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
       <v-toolbar-title>HF</v-toolbar-title>
+      <v-spacer></v-spacer>
+      <LogoutBtn v-show="$store.getters.authenticated"/>
+      <v-btn v-show="!$store.getters.authenticated" @click="$router.push('/login')">Log In</v-btn>
     </v-app-bar>
+
     <v-content>
       <v-container class="fill-height" fluid>
         <v-row align="center" justify="center">
           <v-col cols="12">
-            <router-view/>
+            <router-view :key="$route.path"/>
           </v-col>
         </v-row>
       </v-container>
     </v-content>
-    <v-footer app>
+    <!-- <v-footer app>
       <span>&copy; 2019</span>
-    </v-footer>
+    </v-footer> -->
   </v-app>
 
-  <!-- <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
-  </div> -->
 </template>
 
 <script>
   // import UploadPicture from "./components/UploadPicture";
   import SideNav from "./components/SideNav";
+  import LogoutBtn from "./components/LogoutBtn";
 
   export default {
     components: {
       // UploadPicture,
-      SideNav
+      SideNav,
+      LogoutBtn
     },
 
     props: {
