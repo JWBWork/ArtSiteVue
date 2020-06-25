@@ -23,6 +23,7 @@
       logout(){
         this.$store.dispatch('logout').then(response =>{
           console.log(response);
+          // TODO: check route first! throws an error if already on home page
           this.$router.push({name: 'Home'});
         }).catch(error => {
           console.log(error);

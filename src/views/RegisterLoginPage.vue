@@ -1,8 +1,8 @@
 <template lang="html">
 
   <section class="register-login-page">
-    <v-row >
-      <v-col cols="12" justify="center" align="start">
+    <v-row justify="center" align="center">
+      <v-col cols="12" md="8">
         <Register/>
       </v-col>
     </v-row>

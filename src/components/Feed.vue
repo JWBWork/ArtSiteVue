@@ -1,7 +1,17 @@
 <template lang="html">
 
-  <section class="feed">
-    <Post v-for="(post, i) in posts" :key="i" :post="post"/>
+  <section>
+    <v-col cols="12" :class='{"masonry": tileMode}'>
+    <!-- <div :class='[tileMode ? "masonry":"test"]'> -->
+      <v-row 
+      :class='{"post": tileMode}'
+      v-for="(post, i) in posts"
+      align="start"
+      justify="center"
+      :key="i">
+        <Post :post="post" :tileMode="tileMode"/>
+      </v-row>
+    </v-col>
   </section>
 
 </template>
@@ -12,7 +22,7 @@
 
   export default  {
     name: 'feed',
-    props: ['query'],
+    props: ['query', 'tileMode'],
     components: {Post},
     mounted () {
       console.log('Feed with query', this.query)
@@ -46,7 +56,17 @@
 </script>
 
 <style scoped lang="scss">
-  .feed {
+.feed {
+}
 
-  }
+.masonry {
+  column-count: 3;
+  column-gap: 0.5em;
+}
+
+.post {
+  display: inline-block;
+  margin: 0;
+  width: 100%;
+}
 </style>

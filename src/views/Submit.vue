@@ -1,7 +1,11 @@
 <template lang="html">
 
   <section class="submit">
-    <PostForm/>
+    <v-row justify="center" align="center">
+      <v-col cols="12" md="8">
+        <PostForm/>
+      </v-col>
+    </v-row>
   </section>
 
 </template>

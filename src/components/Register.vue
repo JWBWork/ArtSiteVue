@@ -20,6 +20,9 @@
       label="Password"
       v-model="password"
       :rules="passwordRules"
+      :type="hidePassword ? 'password' : 'true'"
+      :append-icon="hidePassword ? 'mdi-eye-off': 'mdi-eye'"
+      @click:append="hidePassword = !hidePassword"
       class="mx-3"></v-text-field>
       <v-text-field 
       v-show="registering"
@@ -27,6 +30,9 @@
       label="Confirm Password"
       v-model="confirmPassword"
       :rules="confirmPasswordRules"
+      :type="hidePassword ? 'password' : 'true'"
+      :append-icon="hidePassword ? 'mdi-eye-off': 'mdi-eye'"
+      @click:append="hidePassword = !hidePassword"
       class="mx-3"></v-text-field>
     
       <v-btn
@@ -65,6 +71,7 @@
         valid: true,
         registering: false,
         username: '',
+        hidePassword: true,
         usernameRules: [
           v => (v && v.length > 5 && 12 > v.length) 
           || "Username must be between 5 and 12 characters"
@@ -96,6 +103,11 @@
           }).then(response => {
             console.log(response)
             this.$router.push({name:'Account'});
+          }).catch(error => {
+            if (error.response.status == 401){
+              console.log('401 error');
+              this.$store.dispatch('setSnackbar', error.response.data.message);
+            }
           });
         }
       },
@@ -119,7 +131,11 @@
             }).then(response => {
               console.log(response)
               this.$router.push({name:'Account'});
+            }).catch(error => {
+              this.$store.dispatch('setSnackbar', error.response.data.message);
             });
+          }).catch(error => {
+            this.$store.dispatch('setSnackbar', error.response.data.message);
           });
         }
       },
@@ -137,7 +153,6 @@
 </script>
 
 <style scoped lang="scss">
-  .register {
-
-  }
+.register {
+}
 </style>

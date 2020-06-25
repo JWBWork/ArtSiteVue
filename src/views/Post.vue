@@ -1,7 +1,7 @@
 <template lang="html">
 
   <section class="post">
-    <Post v-if="post" :post="post"></Post>
+    <Post v-if="post" :post="post" :postView="true"></Post>
   </section>
 
 </template>
@@ -52,7 +52,6 @@
 </script>
 
 <style scoped lang="scss">
-  .post {
-
-  }
+.post {
+}
 </style>
