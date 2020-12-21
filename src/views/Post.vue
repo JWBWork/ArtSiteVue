@@ -27,7 +27,7 @@
           axios.get(
               '/post', {params: {id: routerParams.postId}}
           ).then(response => {
-              console.log(response);
+              // console.log(response);
               this.post = response.data.posts[0];
           }).catch(error => {
               console.log(error);

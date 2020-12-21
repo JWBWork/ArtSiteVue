@@ -12,7 +12,7 @@
               </v-list-item-content>
             </v-list-item>
           </router-link>
-          <router-link link to="/feed">
+          <router-link link to="/feed" v-if="loggedIn">
             <v-list-item>
               <v-list-item-action>
                   <v-icon>mdi-view-dashboard</v-icon>
@@ -48,7 +48,19 @@
                     <v-icon>mdi-account</v-icon>
                 </v-list-item-action>
                 <v-list-item-content>
-                    <v-list-item-title>Account</v-list-item-title>
+                    <v-list-item-title>
+                      Account {{$store.getters.user.username ? `(${$store.getters.user.username})` : ''}}
+                    </v-list-item-title>
+                </v-list-item-content>
+            </v-list-item>
+          </router-link>
+          <router-link link to="/chat" v-if="loggedIn">
+            <v-list-item>
+                <v-list-item-action>
+                    <v-icon>mdi-forum</v-icon>
+                </v-list-item-action>
+                <v-list-item-content>
+                    <v-list-item-title>Chat</v-list-item-title>
                 </v-list-item-content>
             </v-list-item>
           </router-link>
@@ -98,6 +110,6 @@
 }
 
 a {
-    text-decoration: none;
+  text-decoration: none;
 }
 </style>

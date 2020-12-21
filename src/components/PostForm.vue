@@ -20,6 +20,7 @@
 
         <!-- Image Tagging -->
         <v-combobox v-model="submissionTags"
+                    :delimiters="[',',' ']"
                     :items="existingTags"
                     chips
                     clearable
@@ -124,7 +125,12 @@
                 }).catch(error => {
                     console.log(error);
                     this.submittingPost = false;
-                    this.$store.dispatch('setSnackbar', error.response.data.message);
+                    if (error.response) {
+                        this.$store.dispatch('setSnackbar', error.response.data.message);
+                    } else {
+                        console.console.error(error);
+                        this.$store.dispatch('setSnackbar', error);
+                    }
                     // this.$refs.form.reset();
                     // this.$router.push('Login');
                     // this.$store.dispatch('setSnackbar', error.response.data.message);

@@ -23,8 +23,9 @@
               <h1 class="mt-3" style="overflow:hidden;">{{post.title}}</h1>
               <router-link link :to="{'path': `/user/${post.author_username}`}">
                 <v-row align="center" justify="center">
-                  <v-avatar size="24" class="mx-2">
-                    <v-img :src="post.author_avi"></v-img>
+                  <v-avatar class="mx-2">
+                    <v-img :src="post.author_avi" v-if="post.author_avi"></v-img>
+                    <v-icon v-else x-large>mdi-account</v-icon>
                   </v-avatar>
                   <h6>By {{post.author_username}}</h6>
                 </v-row>
@@ -82,8 +83,9 @@
             </v-row>
             <router-link link :to="{'path': `/user/${post.author_username}`}">
               <v-row align="center" justify="start">
-                <v-avatar size="24" class="mx-2">
-                  <v-img :src="post.author_avi"></v-img>
+                <v-avatar class="mx-2">
+                  <v-img :src="post.author_avi" v-if="post.author_avi"></v-img>
+                  <v-icon v-else x-large>mdi-account</v-icon>
                 </v-avatar>
                 <h6>By {{post.author_username}}</h6>
               </v-row>
@@ -131,8 +133,9 @@
           </span>
           <router-link link :to="{'path': `/user/${post.author_username}`}">
             <v-row align="center" justify="start">
-              <v-avatar size="24" class="mx-2">
-                <v-img :src="post.author_avi"></v-img>
+              <v-avatar class="mx-2">
+                <v-img :src="post.author_avi" v-if="post.author_avi"></v-img>
+                <v-icon v-else x-large>mdi-account</v-icon>
               </v-avatar>
               <h6>By {{post.author_username}}</h6>
             </v-row>
@@ -171,8 +174,9 @@
         </v-row>
         <router-link link :to="{'path': `/user/${post.author_username}`}">
           <v-row align="center" justify="start">
-            <v-avatar size="24" class="mx-2">
-              <v-img :src="post.author_avi"></v-img>
+            <v-avatar class="mx-2">
+              <v-img :src="post.author_avi" v-if="post.author_avi"></v-img>
+              <v-icon v-else x-large>mdi-account</v-icon>
             </v-avatar>
             <h6>By {{post.author_username}}</h6>
           </v-row>
@@ -232,24 +236,6 @@
       }
     },
     methods: {
-      submitComment(){
-        this.$store.dispatch(
-          'submitComment', {
-            postId: this.post.id,
-            comment: this.comment,
-            authorId: this.$store.getters.user.id
-          }
-        ).then(response => {
-          console.log(response)
-          this.post.comments.push(this.comment);
-          this.comment = "";
-        }).catch(error => {
-          // TODO: check for auth error and logout
-          console.log(error);
-          this.$store.dispatch('setSnackbar', error.response.data.message);
-          // this.$router.push('Login');
-        });
-      },
     },
     watch: {
       liked: function(val){

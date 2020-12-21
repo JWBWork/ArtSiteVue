@@ -1,15 +1,41 @@
 <template>
   <v-app id="inspire">
-    <v-navigation-drawer v-model="drawer" app clipped style="z-index:11;">
+    <v-navigation-drawer v-model="drawer" app clipped style="z-index: 11">
       <SideNav />
     </v-navigation-drawer>
 
-    <v-app-bar app clipped-left dense id="app-bar" :hide-on-scroll="$vuetify.breakpoint.smAndDown">
+    <v-app-bar
+      app
+      clipped-left
+      dense
+      id="app-bar"
+      :hide-on-scroll="$vuetify.breakpoint.smAndDown"
+    >
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
       <v-toolbar-title>HF</v-toolbar-title>
       <v-spacer></v-spacer>
+      <v-text-field
+        class="mb-0 mt-5"
+        v-model="searchString"
+        @keyup.enter="search"
+      >
+        <v-icon slot="prepend" @click="search"> mdi-magnify </v-icon>
+        <v-icon slot="append" @click="searchString = ''"> mdi-close </v-icon>
+      </v-text-field>
+      <v-spacer></v-spacer>
+      <router-link
+        v-show="$store.getters.authenticated"
+        link
+        :to="{ name: 'Chat' }"
+      >
+        <v-icon>mdi-forum</v-icon>
+      </router-link>
       <LogoutBtn v-show="$store.getters.authenticated" />
-      <v-btn v-show="!$store.getters.authenticated" @click="$router.push('/login')">Log In</v-btn>
+      <v-btn
+        v-show="!$store.getters.authenticated"
+        @click="$router.push('/login')"
+        >Log In</v-btn
+      >
     </v-app-bar>
 
     <v-content id="content">
@@ -25,7 +51,7 @@
       <span>&copy; 2019</span>
     </v-footer>-->
     <v-snackbar :value="snackbarMessage">
-      {{snackbarMessage}}
+      {{ snackbarMessage }}
       <v-btn @click="clearSnackbar">close</v-btn>
     </v-snackbar>
   </v-app>
@@ -35,26 +61,28 @@
 // import UploadPicture from "./components/UploadPicture";
 import SideNav from "./components/SideNav";
 import LogoutBtn from "./components/LogoutBtn";
+import api from "@/api";
 
 export default {
   components: {
     // UploadPicture,
     SideNav,
-    LogoutBtn
+    LogoutBtn,
   },
 
   props: {
-    source: String
+    // source: String,
   },
 
   data: () => ({
-    drawer: null
+    drawer: null,
+    searchString: "",
   }),
 
   computed: {
     snackbarMessage() {
       return this.$store.getters.snackbarMessage;
-    }
+    },
   },
 
   watch: {
@@ -62,18 +90,31 @@ export default {
       setTimeout(() => {
         this.clearSnackbar();
       }, 3000);
-    }
+    },
   },
 
   methods: {
     clearSnackbar() {
       this.$store.dispatch("resetSnackbar");
-    }
+    },
+    search() {
+      let trimmedSearchString = this.searchString.trim();
+      if (trimmedSearchString != "") {
+        api
+          .search(trimmedSearchString)
+          .then((response) => {
+            console.log(response);
+          })
+          .catch((error) => {
+            this.$store.dispatch("setSnackbar", error.response.data.message);
+          });
+      }
+    },
   },
 
   created() {
     this.$vuetify.theme.dark = true;
-  }
+  },
 };
 </script>
 

@@ -1,86 +1,95 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
-import User from '../views/User.vue'
-import Submit from '../views/Submit.vue'
-import RegisterLoginPage from '../views/RegisterLoginPage.vue'
-import Post from '../views/Post.vue'
-import UnderConstruction from '../views/UnderConstruction.vue'
+import Vue from "vue";
+import VueRouter from "vue-router";
+import Home from "../views/Home.vue";
+import User from "../views/User.vue";
+import Submit from "../views/Submit.vue";
+import RegisterLoginPage from "../views/RegisterLoginPage.vue";
+import Post from "../views/Post.vue";
+import Dashboard from "../views/Dashboard.vue";
+import Chat from "../views/Chat.vue";
+import UnderConstruction from "../views/UnderConstruction.vue";
 
-import store from '../store/index.js';
+import store from "../store/index.js";
 
-Vue.use(VueRouter)
+Vue.use(VueRouter);
 
-  const routes = [
+const routes = [
   {
-    path: '/',
-    name: 'Home',
-    component: Home
+    path: "/",
+    name: "Home",
+    component: Home,
   },
   {
-    path: '/submit',
-    name: 'Submit',
-    component: Submit
+    path: "/submit",
+    name: "Submit",
+    component: Submit,
   },
   {
-    path: '/settings',
-    name: 'Settings',
-    component: UnderConstruction
+    path: "/settings",
+    name: "Settings",
+    component: UnderConstruction,
   },
   {
-    path: '/account',
-    name: 'Account',
+    path: "/account",
+    name: "Account",
     component: User,
-    meta: {reqAuth:true}
+    meta: { reqAuth: true },
   },
   {
-    path: '/user/:username',
-    name: 'User',
-    component: User
+    path: "/user/:username",
+    name: "User",
+    component: User,
   },
   {
-    path: '/login',
-    name: 'RegisterLoginPage',
-    component: RegisterLoginPage
+    path: "/login",
+    name: "RegisterLoginPage",
+    component: RegisterLoginPage,
   },
   {
-    path: '/post/:postId',
-    name: 'Post',
+    path: "/post/:postId",
+    name: "Post",
     component: Post,
     props: true,
   },
   {
-    path: '/feed',
-    name: 'Feed',
+    path: "/feed",
+    name: "Feed",
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: UnderConstruction
+    component: Dashboard,
     // component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-  }
-]
+  },
+  {
+    path: "/chat",
+    name: "Chat",
+    component: Chat,
+    meta: { reqAuth: true },
+    props: true,
+  },
+];
 
 const router = new VueRouter({
-  routes
-})
+  routes,
+});
 
 router.beforeEach((to, from, next) => {
   let authenticated = store.getters.authenticated;
-  if (to.path != '/login' && to.matched.some(record => record.meta.reqAuth)) {
+  if (to.path != "/login" && to.matched.some((record) => record.meta.reqAuth)) {
     // let authenticated = false //replace with vuex store auth call
-    console.log('authenticated status '+authenticated);
+    console.log("authenticated status " + authenticated);
     if (!authenticated) {
-      console.log('Redirecting to register/login');
-      next('/login');
+      console.log("Redirecting to register/login");
+      next("/login");
     } else {
       next();
     }
-  } else if (to.path=='/login' && authenticated) {
-    console.log('Already logged in, directing to account!');
-    next('/account');
+  } else if (to.path == "/login" && authenticated) {
+    console.log("Already logged in, directing to account!");
+    next("/account");
   } else {
     next();
   }
-})
+});
 
-export default router
+export default router;

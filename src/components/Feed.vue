@@ -2,7 +2,6 @@
 
   <section>
     <v-col cols="12" :class='{"masonry": tileMode}'>
-    <!-- <div :class='[tileMode ? "masonry":"test"]'> -->
       <v-row 
       :class='{"post": tileMode}'
       v-for="(post, i) in posts"
@@ -25,14 +24,14 @@
     props: ['query', 'tileMode'],
     components: {Post},
     mounted () {
-      console.log('Feed with query', this.query)
+      // console.log('Feed with query', this.query)
       // var _this = this;
       this.$nextTick(() => {
-        console.log('Feed with query', this.query)
+        // console.log('Feed with query', this.query)
         axios.get(
           '/post', {params: this.query}
         ).then(response => {
-            console.log(response)
+            // console.log(response)
             this.posts = response.data.posts;
         }).catch(e => {
             console.log(e);

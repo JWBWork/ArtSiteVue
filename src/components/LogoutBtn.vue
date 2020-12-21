@@ -39,7 +39,6 @@
 </script>
 
 <style scoped lang="scss">
-  .logout-btn {
-
-  }
+.logout-btn {
+}
 </style>

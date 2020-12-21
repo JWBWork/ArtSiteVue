@@ -6,7 +6,8 @@
       <v-list-item>
         <router-link link :to="`/user/${comment.username}`">
           <v-list-item-avatar>
-            <v-img :src="comment.avi"></v-img>
+            <v-img :src="comment.avi" v-if="comment.avi"></v-img>
+            <v-icon v-else x-large>mdi-account</v-icon>
           </v-list-item-avatar>
         </router-link>
 
@@ -63,7 +64,13 @@
           }
         ).then(response => {
           console.log(response)
-          this.comments.push(this.comment);
+          // this.comments.push(this.comment);
+          this.comments.push({
+            body: this.comment,
+            author_id: this.$store.getters.user.id,
+            avi: this.$store.getters.user.avi,
+            username: this.$store.getters.user.username
+          });
           this.comment = "";
         }).catch(error => {
           // TODO: check for auth error and logout

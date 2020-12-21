@@ -10,15 +10,15 @@
                 <v-col cols="12" sm="4" md="12" class="py-0">
                   <!-- AVI and avi upload -->
                   <v-list-item>
-                      <v-badge icon="mdi-pencil" overlap 
-                      :value="accountPage" class="mr-4">
-                        <v-avatar @click="accountPage ? $refs.aviFile.click() : ''">
-                          <v-img :src="avi_url" v-if="avi_url"></v-img>
-                          <v-icon v-else x-large>mdi-account</v-icon>
-                        </v-avatar>
-                      </v-badge>
-                      <input type="file" ref="aviFile" style="display: none"
-                      v-on:change="updateUserAvi($event.target.name, $event.target.files)">
+                    <v-badge icon="mdi-pencil" overlap 
+                    :value="accountPage" class="mr-4">
+                      <v-avatar @click="accountPage ? $refs.aviFile.click() : ''">
+                        <v-img :src="avi_url" v-if="avi_url"></v-img>
+                        <v-icon v-else x-large>mdi-account</v-icon>
+                      </v-avatar>
+                    </v-badge>
+                    <input type="file" ref="aviFile" style="display: none"
+                    v-on:change="updateUserAvi($event.target.name, $event.target.files)">
                     <v-list-item-content>
                       <v-list-item-title class="headline">
                         {{user.username}}
@@ -27,6 +27,14 @@
                         since {{createdDisplay}}
                       </v-list-item-subtitle>
                     </v-list-item-content>
+                    <!-- <router-link link :to="{name: 'Chat'}" v-if="!accountPage & $store.getters.user.id != user.id" @click="createChat"> -->
+                    <!-- <router-link link :to="{name: 'Chat'}" v-if="!accountPage & $store.getters.user.id != user.id" @click="createChat"> -->
+                    <v-btn icon @click="openChat" v-if="userType == 'otherUser'">
+                      <v-icon>
+                        mdi-forum
+                      </v-icon>
+                    </v-btn>
+                    <!-- </router-link> -->
                   </v-list-item>
                 </v-col>
 
@@ -34,11 +42,11 @@
                   <!-- bio display / click to edit textarea -->
                   <v-row justify=center>
                     <v-col align=center>
-                      <v-badge :value="accountPage" icon="mdi-pencil" overlap style="width:100%;height:100%;">
+                      <v-badge :value="accountPage" icon="mdi-pencil" 
+                      overlap style="width:100%;height:100%;">
                         <div @click="edit.editBio = true">
                           <v-textarea :value="user.bio" ref="biotextarea"
-                          label="Bio" auto-grow outlined
-                          :disabled="!(accountPage && edit.editBio)" 
+                          label="Bio" auto-grow outlined :disabled="!(accountPage && edit.editBio)" 
                           ></v-textarea>
                         </div>
                         <v-btn v-if="accountPage && edit.editBio" @click="updateUserBio">
@@ -51,15 +59,25 @@
               </v-row>
             </v-container>
 
+            <v-expansion-panels flat>
+              <v-expansion-panel>
+                <v-expansion-panel-header>Following</v-expansion-panel-header>
+                <v-expansion-panel-content>
+                  blah blah
+                </v-expansion-panel-content>
+              </v-expansion-panel>
+            </v-expansion-panels>
+
             <v-card-actions>
-              <v-tooltip top v-if="!accountPage && $store.getters.authenticated">
-                <template v-slot:activator="{ on }">
-                  <v-btn icon v-on="on">
-                    <v-icon>mdi-plus</v-icon>
-                  </v-btn>
-                </template>
-                <span>follow</span>
-              </v-tooltip>
+              <!-- <v-btn @click="follow" v-if="!following && user.id != $store.getters.user.id"> -->
+              <v-btn @click="follow" v-if="!following && userType == 'otherUser'">
+                <!-- <v-icon>mdi-plus</v-icon> -->
+                follow
+              </v-btn>
+              <!-- <v-btn @click="unfollow" v-else-if="following && user.id != $store.getters.user.id"> -->
+              <v-btn @click="unfollow" v-else-if="following && userType == 'otherUser'">
+                unfollow
+              </v-btn>
             </v-card-actions>
           </v-card>
         </v-col>
@@ -94,9 +112,7 @@
     },
     created () {
       const path = this.$router.currentRoute.path;
-      console.log('path', path);
       const routerParams = this.$route.params;
-      console.log('routerParams', routerParams);
       if(path==='/account'){
         console.log('account page')
         this.user = this.$store.getters.user;
@@ -106,11 +122,6 @@
         }
       } else {
         const username = this.$route.params.username
-        if (this.$store.getters.user) {
-          if (username == this.$store.getters.user.username) {
-            this.$router.replace('/account');
-          }
-        }
         this.$nextTick(() => {
           axios.get(
               '/user', {params: {username: username}}
@@ -121,7 +132,7 @@
               this.feedQuery = {
                 author_id: user.id
               }
-              console.log('user page query:', this.feedQuery)
+              // console.log('user page query:', this.feedQuery)
           }).catch(error => {
               console.log(error);
           });
@@ -161,9 +172,42 @@
           console.log(error);
           this.$store.dispatch('setSnackbar', error.response.data.message);
         });
+      },
+      follow(){
+        this.$store.dispatch(
+          'followUser', this.user
+        );
+      },
+      unfollow() {
+        this.$store.dispatch(
+          'unfollowUser', this.user
+        );
+      },
+      openChat(){
+        this.$socket.emit('open_room', {
+          fromId: this.$store.getters.user.id,
+          userIds: [this.user.id, this.$store.getters.user.id],
+        });
+        this.$router.push({
+            name: 'Chat',
+            params: {
+                // post: response.data.post
+            }
+        });
       }
     },
     computed: {
+      userType: function() {
+        if (this.accountPage) {
+          return 'account'
+        } else if (this.$store.getters.user == null) {
+          return 'guest'
+        } else if (this.$store.getters.user.id != this.user.id & this.user.id != this.$store.getters.user.id) {
+          return 'otherUser'
+        } else {
+          return null
+        }
+      },
       avi_url: function() {
         if (this.edit.aviFile) {
           const preview_url = URL.createObjectURL(this.edit.aviFile);
@@ -180,6 +224,15 @@
         } else {
           return ''
         }
+      },
+      following: function() {
+        let following = null;
+        if (this.$store.getters.user) {
+          following  = this.$store.getters.user.following.find(
+            user => user.id == this.user.id
+          );
+        }
+        return following
       }
     }
 }
