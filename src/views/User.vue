@@ -27,14 +27,11 @@
                         since {{createdDisplay}}
                       </v-list-item-subtitle>
                     </v-list-item-content>
-                    <!-- <router-link link :to="{name: 'Chat'}" v-if="!accountPage & $store.getters.user.id != user.id" @click="createChat"> -->
-                    <!-- <router-link link :to="{name: 'Chat'}" v-if="!accountPage & $store.getters.user.id != user.id" @click="createChat"> -->
-                    <v-btn icon @click="openChat" v-if="userType == 'otherUser'">
+                    <!-- <v-btn icon @click="openChat" v-if="userType == 'otherUser'">
                       <v-icon>
                         mdi-forum
                       </v-icon>
-                    </v-btn>
-                    <!-- </router-link> -->
+                    </v-btn> -->
                   </v-list-item>
                 </v-col>
 
@@ -59,14 +56,14 @@
               </v-row>
             </v-container>
 
-            <v-expansion-panels flat>
+            <!-- <v-expansion-panels flat>
               <v-expansion-panel>
                 <v-expansion-panel-header>Following</v-expansion-panel-header>
                 <v-expansion-panel-content>
                   blah blah
                 </v-expansion-panel-content>
               </v-expansion-panel>
-            </v-expansion-panels>
+            </v-expansion-panels> -->
 
             <v-card-actions>
               <!-- <v-btn @click="follow" v-if="!following && user.id != $store.getters.user.id"> -->

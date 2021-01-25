@@ -12,7 +12,9 @@
   export default  {
     name: 'dashboard',
     props: [],
-    components: {Feed,},
+    components: {
+      Feed,
+    },
     data () {
       return {
         feedQuery: {

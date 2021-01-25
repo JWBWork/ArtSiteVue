@@ -12,6 +12,16 @@
               </v-list-item-content>
             </v-list-item>
           </router-link>
+          <router-link link to="/search">
+            <v-list-item>
+              <v-list-item-action>
+                  <v-icon>mdi-magnify</v-icon>
+              </v-list-item-action>
+              <v-list-item-content>
+                  <v-list-item-title>Search</v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+          </router-link>
           <router-link link to="/feed" v-if="loggedIn">
             <v-list-item>
               <v-list-item-action>
@@ -54,7 +64,7 @@
                 </v-list-item-content>
             </v-list-item>
           </router-link>
-          <router-link link to="/chat" v-if="loggedIn">
+          <!-- <router-link link to="/chat" v-if="loggedIn">
             <v-list-item>
                 <v-list-item-action>
                     <v-icon>mdi-forum</v-icon>
@@ -63,7 +73,7 @@
                     <v-list-item-title>Chat</v-list-item-title>
                 </v-list-item-content>
             </v-list-item>
-          </router-link>
+          </router-link> -->
           <router-link link to="/submit" v-if="loggedIn">
             <v-list-item>
               <v-list-item-action>

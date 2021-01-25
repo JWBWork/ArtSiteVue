@@ -1,0 +1,60 @@
+Date : 2020-12-23 16:24:39
+Directory : d:\Users\Jacob\VueProjects\cyoa\src
+Total : 26 files,  2123 codes, 283 comments, 244 blanks, all 2650 lines
+
+Languages
++------------+------------+------------+------------+------------+------------+
+| language   | files      | code       | comment    | blank      | total      |
++------------+------------+------------+------------+------------+------------+
+| Vue        |         19 |      1,703 |        256 |        223 |      2,182 |
+| JavaScript |          6 |        419 |         27 |         20 |        466 |
+| XML        |          1 |          1 |          0 |          1 |          2 |
++------------+------------+------------+------------+------------+------------+
+
+Directories
++-----------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                            | files      | code       | comment    | blank      | total      |
++-----------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                               |         26 |      2,123 |        283 |        244 |      2,650 |
+| api                                                             |          1 |         15 |          1 |          1 |         17 |
+| assets                                                          |          1 |          1 |          0 |          1 |          2 |
+| components                                                      |          9 |        969 |        239 |        111 |      1,319 |
+| constants                                                       |          1 |          4 |          0 |          2 |          6 |
+| plugins                                                         |          1 |          5 |          0 |          3 |          8 |
+| router                                                          |          1 |         82 |         14 |          7 |        103 |
+| store                                                           |          1 |        283 |         11 |          3 |        297 |
+| views                                                           |          9 |        615 |         11 |         95 |        721 |
++-----------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++-----------------------------------------------------------------+------------+------------+------------+------------+------------+
+| filename                                                        | language   | code       | comment    | blank      | total      |
++-----------------------------------------------------------------+------------+------------+------------+------------+------------+
+| d:\Users\Jacob\VueProjects\cyoa\src\App.vue                     | Vue        |        119 |          6 |         17 |        142 |
+| d:\Users\Jacob\VueProjects\cyoa\src\api\index.js                | JavaScript |         15 |          1 |          1 |         17 |
+| d:\Users\Jacob\VueProjects\cyoa\src\assets\logo.svg             | XML        |          1 |          0 |          1 |          2 |
+| d:\Users\Jacob\VueProjects\cyoa\src\components\Comments.vue     | Vue        |         83 |          3 |         13 |         99 |
+| d:\Users\Jacob\VueProjects\cyoa\src\components\Feed.vue         | Vue        |         72 |          5 |         11 |         88 |
+| d:\Users\Jacob\VueProjects\cyoa\src\components\HelloWorld.vue   | Vue        |        141 |          0 |         11 |        152 |
+| d:\Users\Jacob\VueProjects\cyoa\src\components\LogoutBtn.vue    | Vue        |         33 |          1 |         11 |         45 |
+| d:\Users\Jacob\VueProjects\cyoa\src\components\Post.vue         | Vue        |        321 |         18 |         29 |        368 |
+| d:\Users\Jacob\VueProjects\cyoa\src\components\PostForm.vue     | Vue        |         11 |        205 |          2 |        218 |
+| d:\Users\Jacob\VueProjects\cyoa\src\components\Register.vue     | Vue        |        146 |          2 |         11 |        159 |
+| d:\Users\Jacob\VueProjects\cyoa\src\components\SideNav.vue      | Vue        |        114 |          0 |         12 |        126 |
+| d:\Users\Jacob\VueProjects\cyoa\src\components\TagChip.vue      | Vue        |         48 |          5 |         11 |         64 |
+| d:\Users\Jacob\VueProjects\cyoa\src\constants\index.js          | JavaScript |          4 |          0 |          2 |          6 |
+| d:\Users\Jacob\VueProjects\cyoa\src\main.js                     | JavaScript |         30 |          1 |          4 |         35 |
+| d:\Users\Jacob\VueProjects\cyoa\src\plugins\vuetify.js          | JavaScript |          5 |          0 |          3 |          8 |
+| d:\Users\Jacob\VueProjects\cyoa\src\router\index.js             | JavaScript |         82 |         14 |          7 |        103 |
+| d:\Users\Jacob\VueProjects\cyoa\src\store\index.js              | JavaScript |        283 |         11 |          3 |        297 |
+| d:\Users\Jacob\VueProjects\cyoa\src\views\Chat.vue              | Vue        |        106 |          2 |          8 |        116 |
+| d:\Users\Jacob\VueProjects\cyoa\src\views\Dashboard.vue         | Vue        |         36 |          0 |         12 |         48 |
+| d:\Users\Jacob\VueProjects\cyoa\src\views\Home.vue              | Vue        |         39 |          3 |          4 |         46 |
+| d:\Users\Jacob\VueProjects\cyoa\src\views\Post.vue              | Vue        |         46 |          2 |         10 |         58 |
+| d:\Users\Jacob\VueProjects\cyoa\src\views\RegisterLoginPage.vue | Vue        |         33 |          0 |         11 |         44 |
+| d:\Users\Jacob\VueProjects\cyoa\src\views\Search.vue            | Vue        |         52 |          0 |          9 |         61 |
+| d:\Users\Jacob\VueProjects\cyoa\src\views\Submit.vue            | Vue        |         33 |          0 |         13 |         46 |
+| d:\Users\Jacob\VueProjects\cyoa\src\views\UnderConstruction.vue | Vue        |         32 |          0 |         13 |         45 |
+| d:\Users\Jacob\VueProjects\cyoa\src\views\User.vue              | Vue        |        238 |          4 |         15 |        257 |
+| Total                                                           |            |      2,123 |        283 |        244 |      2,650 |
++-----------------------------------------------------------------+------------+------------+------------+------------+------------+

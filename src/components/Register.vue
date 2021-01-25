@@ -73,8 +73,8 @@
         username: '',
         hidePassword: true,
         usernameRules: [
-          v => (v && v.length > 5 && 12 > v.length) 
-          || "Username must be between 5 and 12 characters"
+          v => (v && v.length > 5 && 12 > v.length && !v.includes(' ')) 
+          || "Username must be between 5 and 12 characters - contain no spaces - letters and numbers only"
         ],
         password: '',
         passwordRules: [

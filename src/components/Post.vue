@@ -93,6 +93,12 @@
             <span style="white-space: pre-line">{{post.description}}</span>
           </div>
 
+          <v-col cols="12" align="center">
+            <v-row justify="center">
+                <TagChip v-for="(tag, i) in post.tags" :key="i" :tag='tag'/>
+            </v-row>
+          </v-col>
+
           <div v-if="!tileMode" @click.stop>
             <v-divider></v-divider>
             <Comments :comments="post.comments"
@@ -141,6 +147,9 @@
             </v-row>
           </router-link>
           <span style="white-space: pre-line">{{post.description}}</span>
+          <v-row justify="center">
+            <TagChip v-for="(tag, i) in post.tags" :key="i" :tag='tag'/>
+          </v-row>
           <v-divider></v-divider>
             <Comments :comments="post.comments"
             :postId="post.id"></Comments>
@@ -196,6 +205,7 @@
   import axios from 'axios';
   import VBar from 'v-bar';
   import Comments from '@/components/Comments.vue';
+  import TagChip from '@/components/TagChip.vue';
   // import LikeDislike from '@/components/LikeDislike.vue';
 
   export default  {
@@ -207,7 +217,8 @@
     ],
     components: {
       VBar, 
-      Comments
+      Comments,
+      TagChip,
       // LikeDislike
     },
     mounted () {
@@ -337,11 +348,7 @@
 }
 
 .fullscreen {
-  position: fixed;
-  z-index: 500;
-  top: 0;
-  left: 50%;
-  transform: translate(-50%, 0);
+  // z-index: 1;
   height: 100vh !important;
   width: 90vw !important;
   overflow-y: scroll;

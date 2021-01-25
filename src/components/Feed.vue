@@ -1,7 +1,8 @@
 <template lang="html">
 
   <section>
-    <v-col cols="12" :class='{"masonry": tileMode}'>
+    
+    <v-col cols="12" :style='masonry'>
       <v-row 
       :class='{"post": tileMode}'
       v-for="(post, i) in posts"
@@ -21,21 +22,37 @@
 
   export default  {
     name: 'feed',
-    props: ['query', 'tileMode'],
+    // props: ['query', 'tileMode', 'postsArray'],
+    props: {
+      query: Object,
+      tileMode: Boolean,
+      // ensure this works for postArray in mounted bullshit?
+      postsArray: {
+        type: [Object, Array],
+        default: null
+      },
+      cols: {
+        type: Number,
+        default: 1
+      }
+    },
     components: {Post},
     mounted () {
-      // console.log('Feed with query', this.query)
-      // var _this = this;
       this.$nextTick(() => {
-        // console.log('Feed with query', this.query)
-        axios.get(
-          '/post', {params: this.query}
-        ).then(response => {
-            // console.log(response)
+        if (this.postsArray) {
+          console.log('this.postsArray')
+          console.log(this.postsArray)
+          this.posts = this.postArray;
+        } else {
+          axios.get(
+            '/post', {params: this.query}
+          ).then(response => {
             this.posts = response.data.posts;
-        }).catch(e => {
+          }).catch(e => {
             console.log(e);
-        });
+          });
+        }
+        // console.log(`Feed recieved ${this.posts.length} posts`)
       });
     },
     data () {
@@ -47,7 +64,22 @@
 
     },
     computed: {
-
+      masonry() {
+        if (this.tileMode) {
+          let cols = this.cols ? this.cols : 2;
+          return {
+            'column-count': cols,
+            'column-gap': '0.5em'
+          }
+        } else {
+          return {}
+        }
+      }
+    },
+    watch: {
+      postsArray(val) {
+        this.posts = val;
+      }
     }
 }
 
@@ -58,10 +90,10 @@
 .feed {
 }
 
-.masonry {
-  column-count: 3;
-  column-gap: 0.5em;
-}
+// .masonry {
+//   column-count: 3;
+//   column-gap: 0.5em;
+// }
 
 .post {
   display: inline-block;

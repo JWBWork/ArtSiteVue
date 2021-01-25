@@ -12,7 +12,7 @@
       :hide-on-scroll="$vuetify.breakpoint.smAndDown"
     >
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
-      <v-toolbar-title>HF</v-toolbar-title>
+      <v-toolbar-title>HG</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-text-field
         class="mb-0 mt-5"
@@ -23,13 +23,6 @@
         <v-icon slot="append" @click="searchString = ''"> mdi-close </v-icon>
       </v-text-field>
       <v-spacer></v-spacer>
-      <router-link
-        v-show="$store.getters.authenticated"
-        link
-        :to="{ name: 'Chat' }"
-      >
-        <v-icon>mdi-forum</v-icon>
-      </router-link>
       <LogoutBtn v-show="$store.getters.authenticated" />
       <v-btn
         v-show="!$store.getters.authenticated"
@@ -99,16 +92,12 @@ export default {
     },
     search() {
       let trimmedSearchString = this.searchString.trim();
-      if (trimmedSearchString != "") {
-        api
-          .search(trimmedSearchString)
-          .then((response) => {
-            console.log(response);
-          })
-          .catch((error) => {
-            this.$store.dispatch("setSnackbar", error.response.data.message);
-          });
-      }
+      console.log(`searching ${trimmedSearchString}`);
+      this.$router.push({
+        name: `Search`,
+        query: { searchQuery: trimmedSearchString },
+      });
+      this.searchString = null;
     },
   },
 

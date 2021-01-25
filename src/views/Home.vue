@@ -5,13 +5,13 @@
     <v-card>
       <v-card-title class="mb-n5">New</v-card-title>
       <VBar class="feedBox">
-        <Feed :tileMode="true" />
+        <Feed :tileMode="true" :cols="4" />
       </VBar>
     </v-card>
     <v-card>
       <v-card-title class="mb-n5">Popular</v-card-title>
       <VBar class="feedBox">
-        <Feed :tileMode="true" />
+        <Feed :tileMode="true" :cols="4" />
       </VBar>
     </v-card>
   </div>
@@ -27,8 +27,8 @@ export default {
   name: "Home",
   components: {
     Feed,
-    VBar
-  }
+    VBar,
+  },
 };
 </script>
 

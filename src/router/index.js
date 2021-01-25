@@ -6,7 +6,8 @@ import Submit from "../views/Submit.vue";
 import RegisterLoginPage from "../views/RegisterLoginPage.vue";
 import Post from "../views/Post.vue";
 import Dashboard from "../views/Dashboard.vue";
-import Chat from "../views/Chat.vue";
+import Search from "../views/Search.vue";
+// import Chat from "../views/Chat.vue";
 import UnderConstruction from "../views/UnderConstruction.vue";
 
 import store from "../store/index.js";
@@ -60,12 +61,18 @@ const routes = [
     component: Dashboard,
     // component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
   },
+  // {
+  //   path: "/chat",
+  //   name: "Chat",
+  //   component: Chat,
+  //   meta: { reqAuth: true },
+  //   props: true,
+  // },
   {
-    path: "/chat",
-    name: "Chat",
-    component: Chat,
-    meta: { reqAuth: true },
-    props: true,
+    path: "/search",
+    name: "Search",
+    component: Search,
+    // props: true,
   },
 ];
 
